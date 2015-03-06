@@ -42,7 +42,6 @@ public class ComplexNumber {
      * ritorna un valore di tipo double
      * 
      */
-    
     public double getModulus(){    
         return (Math.sqrt((Math.pow(this.re,2))+(Math.pow(this.im,2))));
     }
@@ -56,21 +55,9 @@ public class ComplexNumber {
     
     public double getArgument(){
       
-        double r = 0;
-
-        if(re==0 && im==0) 
-            r=0;
-
-        else if ((re < 0 && im > 0) || (re < 0 && im <= 0))
-                r = Math.toDegrees((Math.atan(im / re))) + 180; // 2^ e 3^
-        
-        else if (re >= 0 && im < 0)
-                r = Math.toDegrees((Math.atan(im / re))) + 360; // 4^
+              
+        return ((Math.atan(this.im / this.re)*180)/Math.PI); 
        
-        else if (re >= 0 && im >= 0)
-                r = Math.toDegrees((Math.atan(im / re))); // 1^ quadrante del
-        
-        return r;
     }
     /**
      * 
@@ -113,14 +100,8 @@ public class ComplexNumber {
     public void setPolar(double argument, double modulus){
 //       this. re =  cos((argument*PI)/180)*modulus;
 //        this.im =  sin((argument*PI)/180)*modulus;
-         if (argument == 90 || argument == 270)
-            this.re = 0;
-        else
+         
             this.re = modulus * (Math.cos((argument) * Math.PI / 180));
-        
-        if (argument == 180 || argument == 360)
-            this.im = 0;
-        else  
             this.im = modulus * (Math.sin((argument) * Math.PI / 180));
     }
     
