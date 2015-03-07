@@ -21,6 +21,7 @@ public class Ese102 {
         public static void main(String[] args) throws IOException {
 
         ComplexNumber cn = new ComplexNumber();
+        ComplexNumber addendo = new ComplexNumber();
         String type = "";
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader tastiera = new BufferedReader(input);
@@ -38,7 +39,6 @@ public class Ese102 {
         System.out.println("La Paparellium Corporation ha la soluzione.");
         System.out.println("Scrivi '1' per inserire modulo e argomento");
         System.out.println("Scrivi '2' per inserire coordinate gaussiane");
-
         type = tastiera.readLine();
         tipo=(Float.valueOf(type).floatValue());
 

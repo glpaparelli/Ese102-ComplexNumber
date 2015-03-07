@@ -54,16 +54,13 @@ public class ComplexNumber {
     
     
     public double getArgument(){
-      
-              
         return ((Math.atan(this.im / this.re)*180)/Math.PI); 
-       
     }
     /**
      * 
      * @return
-     * metodi non indispensabili ma rendono 
-     * più user friendly la classe
+     * metodi che ritornano parte reale e immaginaria 
+     * (non indispensabili ma UF)
      * 
      */
     public double getReal(){
@@ -87,6 +84,7 @@ public class ComplexNumber {
         this.re=re;
         this.im=im;
     }
+  
     /**
      * 
      * @param argument
@@ -95,19 +93,62 @@ public class ComplexNumber {
      * metodo necessario per per scrivere le coordinate 
      * polari nei campi re e im.
      */
-    
-    
-    public void setPolar(double argument, double modulus){
-//       this. re =  cos((argument*PI)/180)*modulus;
-//        this.im =  sin((argument*PI)/180)*modulus;
-         
-            this.re = modulus * (Math.cos((argument) * Math.PI / 180));
-            this.im = modulus * (Math.sin((argument) * Math.PI / 180));
+    public void setPolar(double argument, double modulus){     
+            
+        this.re = modulus * (Math.cos((argument) * Math.PI / 180));
+        this.im = modulus * (Math.sin((argument) * Math.PI / 180));
     }
     
-//    public void setPolars(double mod,double arg){
-//        this.re = mod;
-//        this.im = arg;
-//    }
+    public ComplexNumber add(ComplexNumber addendo){
+        
+        ComplexNumber somma = new ComplexNumber();
+        
+        double re = 0;
+        double im = 0;
+        
+        re = this.re + addendo.getRe();
+        im = this.im + addendo.getIm();
+        somma.setRectangular(im, re);
+        return somma;
+    }
+    
+     public ComplexNumber subtration (ComplexNumber subtracter){
+        
+        ComplexNumber sub = new ComplexNumber();
+        
+        double re = 0;
+        double im = 0;
+        
+        re = this.re + sub.getRe();
+        im = this.im + sub.getIm();
+        sub.setRectangular(im, re);
+        return sub;
+    }
+     
+    public ComplexNumber moltiplication (ComplexNumber multiplier){
+        
+        ComplexNumber mul = new ComplexNumber();
+        
+        double re = 0;
+        double im = 0;
+        
+        re = this.getModulus() * mul.getModulus();
+        im = this.getArgument() + mul.getArgument();
+        mul.setPolar(im, re);
+        return mul;
+    }
+    
+    public ComplexNumber division (ComplexNumber divisor){
+        
+        ComplexNumber div = new ComplexNumber();
+        
+        double re = 0;
+        double im = 0;
+        
+        re = this.getModulus() / div.getModulus();
+        im = this.getArgument() - div.getArgument();
+        div.setPolar(im, re);
+        return div;
+    }
 }
 
