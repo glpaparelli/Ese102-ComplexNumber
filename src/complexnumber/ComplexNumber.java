@@ -99,33 +99,33 @@ public class ComplexNumber {
         this.im = modulus * (Math.sin((argument) * Math.PI / 180));
     }
     
-    public ComplexNumber add(ComplexNumber addendo){
+    public ComplexNumber add(ComplexNumber operand){
         
         ComplexNumber somma = new ComplexNumber();
         
         double re = 0;
         double im = 0;
         
-        re = this.re + addendo.getRe();
-        im = this.im + addendo.getIm();
+        re = this.re + somma.getRe();
+        im = this.im + somma.getIm();
         somma.setRectangular(im, re);
         return somma;
     }
     
-     public ComplexNumber subtration (ComplexNumber subtracter){
+     public ComplexNumber subtration (ComplexNumber operand){
         
         ComplexNumber sub = new ComplexNumber();
         
         double re = 0;
         double im = 0;
         
-        re = this.re + sub.getRe();
-        im = this.im + sub.getIm();
+        re = this.re - sub.getRe();
+        im = this.im - sub.getIm();
         sub.setRectangular(im, re);
         return sub;
     }
      
-    public ComplexNumber moltiplication (ComplexNumber multiplier){
+    public ComplexNumber moltiplication (ComplexNumber operand){
         
         ComplexNumber mul = new ComplexNumber();
         
@@ -138,7 +138,7 @@ public class ComplexNumber {
         return mul;
     }
     
-    public ComplexNumber division (ComplexNumber divisor){
+    public ComplexNumber division (ComplexNumber operand){
         
         ComplexNumber div = new ComplexNumber();
         
@@ -146,9 +146,20 @@ public class ComplexNumber {
         double im = 0;
         
         re = this.getModulus() / div.getModulus();
-        im = this.getArgument() - div.getArgument();
-        div.setPolar(im, re);
+        im = this.getArgument() + div.getArgument();
+        div.setPolar(re, im);
         return div;
+    }
+    
+    public ComplexNumber getConjugate(){
+        
+        ComplexNumber r = new ComplexNumber();
+        this.re = r.getRe();
+        this.im = r.getIm();
+        
+        this.re *= -1;
+        r.setRectangular(im, re);
+        return r; 
     }
 }
 

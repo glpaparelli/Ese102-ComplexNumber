@@ -20,6 +20,12 @@ public class Ese102 {
      */
         public static void main(String[] args) throws IOException {
 
+//            
+//         double somma=0;
+//         double sottrazione=0;
+//         double moltiplicazione=0;
+//         double divisione=0;
+            
         ComplexNumber cn = new ComplexNumber();
         ComplexNumber addendo = new ComplexNumber();
         String type = "";
@@ -67,10 +73,10 @@ public class Ese102 {
                 }   
             }
             cn.setPolar(mod, arg);
-            System.out.print("real :  "+cn.getReal());
-            System.out.print("\n\n");
-            System.out.print("immaginary :  "+cn.getImmaginary());
-            System.out.print("\n\n");
+            System.out.print(" " +cn.formatComplexNumber());
+//            System.out.print("\n\n");
+//            System.out.print("immaginary :  "+cn.getImmaginary());
+//            System.out.print("\n\n");
         }
         else if (tipo == 2){
             while (!vValido){
@@ -98,10 +104,15 @@ public class Ese102 {
                 }   
             }
             cn.setRectangular(im, re);
-            System.out.print("argument:  "+cn.getArgument());
-            System.out.print("\n\n");
-            System.out.print("modulus:  "+cn.getModulus());
-            System.out.print("\n\n");
+            System.out.print(""+cn.formatComplexNumber());
+//            System.out.print("\n\n");
+//            System.out.print("modulus:  "+cn.getModulus());
+//            System.out.print("\n\n");
+        }
+        
+        else if(tipo !=1 && tipo!=2){
+            System.out.print("Errore ");
+            return;
         }
     }
 }
