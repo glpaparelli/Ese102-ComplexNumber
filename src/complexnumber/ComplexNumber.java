@@ -157,7 +157,7 @@ public class ComplexNumber {
         this.re = r.getRe();
         this.im = r.getIm();
         
-        this.re *= -1;
+        this.im *= -1;
         r.setRectangular(im, re);
         return r; 
     }
