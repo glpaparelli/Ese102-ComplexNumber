@@ -146,7 +146,7 @@ public class ComplexNumber {
         double im = 0;
         
         re = this.getModulus() / div.getModulus();
-        im = this.getArgument() + div.getArgument();
+        im = this.getArgument() - div.getArgument();
         div.setPolar(re, im);
         return div;
     }
