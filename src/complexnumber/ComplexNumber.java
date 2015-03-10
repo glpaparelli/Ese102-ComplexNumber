@@ -11,14 +11,39 @@ package complexnumber;
 import static java.lang.Math.*;
 
 public class ComplexNumber {
+   
+    static private double initRe;
+    static private double initIm;
+    
+    
     private double re;
     private double im;
+    
+    static public void setInitRectangular(double re, double im) {
+        initRe = re;
+        initIm = im;
+    }
+     
+      
+    static public void setInitPolar(double modulus, double argument){
+    
+        initRe = modulus*Math.cos(argument);
+        initIm = modulus*Math.sin(argument);
+    }
+
     
     public String formatComplexNumber() {
         String r = this.getRe() + "+(" + this.getIm() + ")i";
         return r;
     
     }
+    
+    public String formatComplexNumberpolar() {
+        String r = this.getArgument()+ "+(" + this.getModulus()+ ")i";
+        return r;
+    
+    }
+    
     /**
      * @return the re
      * metodo per la lettura della parte reale 
@@ -95,8 +120,8 @@ public class ComplexNumber {
      */
     public void setPolar(double argument, double modulus){     
             
-        this.re = modulus * (Math.cos((argument) * Math.PI / 180));
-        this.im = modulus * (Math.sin((argument) * Math.PI / 180));
+        initRe = modulus * (Math.cos((argument) * Math.PI / 180));
+        initIm = modulus * (Math.sin((argument) * Math.PI / 180));
     }
     
     public ComplexNumber add(ComplexNumber operand){
@@ -106,8 +131,8 @@ public class ComplexNumber {
         double re = 0;
         double im = 0;
         
-        re = this.re + somma.getRe();
-        im = this.im + somma.getIm();
+        re = this.re +operand.getRe();
+        im = this.im +operand.getIm();
         somma.setRectangular(im, re);
         return somma;
     }
@@ -119,8 +144,8 @@ public class ComplexNumber {
         double re = 0;
         double im = 0;
         
-        re = this.re - sub.getRe();
-        im = this.im - sub.getIm();
+        re = this.re - operand.getRe();
+        im = this.im - operand.getIm();
         sub.setRectangular(im, re);
         return sub;
     }
@@ -132,8 +157,8 @@ public class ComplexNumber {
         double re = 0;
         double im = 0;
         
-        re = this.getModulus() * mul.getModulus();
-        im = this.getArgument() + mul.getArgument();
+        re = this.getModulus() * operand.getModulus();
+        im = this.getArgument() + operand.getArgument();
         mul.setPolar(im, re);
         return mul;
     }
@@ -145,8 +170,8 @@ public class ComplexNumber {
         double re = 0;
         double im = 0;
         
-        re = this.getModulus() / div.getModulus();
-        im = this.getArgument() - div.getArgument();
+        re = this.getModulus() / operand.getModulus();
+        im = this.getArgument() - operand.getArgument();
         div.setPolar(re, im);
         return div;
     }
