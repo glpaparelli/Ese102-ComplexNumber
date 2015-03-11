@@ -7,11 +7,12 @@
 * 
 */
 
+
 package complexnumber;
 import static java.lang.Math.*;
 
 public class ComplexNumber {
-   
+    
     static private double initRe;
     static private double initIm;
     
@@ -80,20 +81,6 @@ public class ComplexNumber {
     
     public double getArgument(){
         return ((Math.atan(this.im / this.re)*180)/Math.PI); 
-    }
-    /**
-     * 
-     * @return
-     * metodi che ritornano parte reale e immaginaria 
-     * (non indispensabili ma UF)
-     * 
-     */
-    public double getReal(){
-        return this.re;
-    }
-    
-    public double getImmaginary(){
-        return this.im;
     }
     
     /**
