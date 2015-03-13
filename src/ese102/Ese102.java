@@ -1,118 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ese102;
+
 import complexnumber.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-/**
- *
- * @author Giulio Paparelli
- */
-public class Ese102 {
+import complexnumber.ComplexNumber.StringFormat;
 
-    /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
-        public static void main(String[] args) throws IOException {
-
-//            
-//         double somma=0;
-//         double sottrazione=0;
-//         double moltiplicazione=0;
-//         double divisione=0;
-            
-        ComplexNumber cn = new ComplexNumber();
-        ComplexNumber addendo = new ComplexNumber();
-        String type = "";
-        InputStreamReader input = new InputStreamReader(System.in);
-        BufferedReader tastiera = new BufferedReader(input);
-        String line = "";
-        float tipo;
-        double re,im;
-        double mod,arg;
-        re = 0.0;
-        im = 0.0;
-        mod = 0.0;
-        arg = 0.0;
-        boolean vValido = false;
-
-        System.out.println("Ti serve un programma per la gestione dei numeri complessi?");
-        System.out.println("La Paparellium Corporation ha la soluzione.");
-        System.out.println("Scrivi '1' per inserire modulo e argomento");
-        System.out.println("Scrivi '2' per inserire coordinate gaussiane");
-        type = tastiera.readLine();
-        tipo=(Float.valueOf(type).floatValue());
-
-        if(tipo == 1){
-            while (!vValido){
-                System.out.println("inserisci il modulo");
-                line = tastiera.readLine();
-                try{
-                    mod=(Float.valueOf(line).floatValue());
-                    vValido = true;
-                }
-                catch(NumberFormatException ex){
-                    System.out.println("riprova");
-                }
-            }
-        vValido = false;
-            while (!vValido){
-                System.out.println("inserisci l'argomento");
-                line = tastiera.readLine();
-                try{
-                    arg = (Float.valueOf(line).floatValue());
-                    vValido = true;
-                }
-                catch(NumberFormatException ex){
-                    System.out.println("riprova");
-                }   
-            }
-            cn.setPolar(mod, arg);
-            System.out.print(" " +cn.formatComplexNumber());
-//            System.out.print("\n\n");
-//            System.out.print("immaginary :  "+cn.getImmaginary());
-//            System.out.print("\n\n");
-        }
-        else if (tipo == 2){
-            while (!vValido){
-                System.out.println("Inserisci la parte reale di un numero complesso");
-                line = tastiera.readLine();
-                try{
-                    re=(Float.valueOf(line).floatValue());
-                    vValido = true;
-                }
-                catch(NumberFormatException ex){
-                    System.out.println("riprova");
-                }
-
-            }
-            vValido = false;
-            while (!vValido){
-                System.out.println("Inserisci la parte immaginaria di un numero complesso");
-                line = tastiera.readLine();
-                try{
-                    im = (Float.valueOf(line).floatValue());
-                    vValido = true;
-                }
-                catch(NumberFormatException ex){
-                    System.out.println("riprova");
-                }   
-            }
-            cn.setRectangular(im, re);
-            System.out.print(""+cn.formatComplexNumber());
-//            System.out.print("\n\n");
-//            System.out.print("modulus:  "+cn.getModulus());
-//            System.out.print("\n\n");
-        }
-        
-        else if(tipo !=1 && tipo!=2){
-            System.out.print("Errore ");
-            return;
-        }
+public class Ese102
+{
+	public static void main(String[] args)
+	{
+		ComplexNumber.setInitRectangular(0, 0);
+		ComplexNumber c1 = new ComplexNumber();
+		ComplexNumber.setInitRectangular(1, 1);
+		ComplexNumber c2 = new ComplexNumber();
+		System.out.println("c1: " + c1);
+		System.out.println("c2: " + c2);
+		System.out.println("Addiction: " + c1.add(c2));
+		ComplexNumber r = c1.add(c2);
+		r.setStringFormat(ComplexNumber.StringFormat.POLAR);
+		System.out.println("Addiction (polar): " + r);
+		System.out.println("Subtraction: " + c1.sub(c2));
+		/* Domanda: come posso controllare il formato della
+		 * rappresentazione a stringa del risultato dell'operazione, senza dover assegnare
+		 * il risultato ad una variabile?
+		 */
+		System.out.println("Subtraction (polar): " + c1.sub(c2));
     }
 }

@@ -16,20 +16,58 @@ public class ComplexNumber {
     static private double initRe;
     static private double initIm;
     
-    
+    static private StringFormat initFormat;
     private double re;
     private double im;
+    private StringFormat format;
     
+    
+    /**
+     * vengono definiti i valori che possono essere 
+     * assunti da una variabile di tipo StringFormat
+     */
+      static public enum  StringFormat{
+        RECTANGULAR,
+        POLAR
+    }
+    
+    public void setStringFormat(StringFormat format) {
+	this.format = format;
+    }  
+      
+      
+    /**
+     * si inizializzano i campi initre, initim e il formato di 
+     * rappresentazione
+     * @param re
+     * @param im 
+     */  
+      
     static public void setInitRectangular(double re, double im) {
         initRe = re;
         initIm = im;
     }
-     
-      
-    static public void setInitPolar(double modulus, double argument){
     
+    
+    public ComplexNumber() {
+        this.re = initRe;
+        this.im = initIm;
+        this.format= initFormat;
+    }
+    
+    
+    /**
+     * si inizializzano i campi initre, initim e il formato di 
+     * rappresentazione
+     * @param modulus
+     * @param argument
+     */  
+    static public void setInitPolar(double modulus, double argument){
+        if (modulus < 0 )
+            throw new IllegalArgumentException("il modulo deve essere 0 o maggiore");
         initRe = modulus*Math.cos(argument);
         initIm = modulus*Math.sin(argument);
+        initFormat = StringFormat.RECTANGULAR;
     }
 
     
@@ -78,10 +116,25 @@ public class ComplexNumber {
      * e non in radianti.
      */
     
-    
     public double getArgument(){
-        return ((Math.atan(this.im / this.re)*180)/Math.PI); 
+        double argument = 0;
+            if(re == 0 || im == 0){
+                argument = 0;
+                    if(im > 0)
+			argument = 90;
+                    else if(im < 0)
+			argument = 270;
+            }
+            else{
+		argument = Math.toDegrees(Math.atan(this.im/this.re));
+		if (re < 0 && im > 0 || re < 0 && im < 0)
+                        argument =argument + 180;
+                    else if (re > 0 && im < 0)
+			argument =argument + 360;
+		}
+    return argument;
     }
+
     
     /**
      * 
@@ -105,63 +158,70 @@ public class ComplexNumber {
      * metodo necessario per per scrivere le coordinate 
      * polari nei campi re e im.
      */
-    public void setPolar(double argument, double modulus){     
-            
-        initRe = modulus * (Math.cos((argument) * Math.PI / 180));
-        initIm = modulus * (Math.sin((argument) * Math.PI / 180));
+     public void setPolar(double modulus, double argument){
+        if(modulus >= 0){
+            this.re = Math.cos(argument*Math.PI/180)*modulus;
+	    if(argument == 180)
+	        this.im = 0;
+	    else
+	       	this.im = Math.sin(argument*Math.PI/180)*modulus;
+        }
+        else
+            throw new IllegalArgumentException("INSERISCI UN VALORE MAGGIORE DI 0");
     }
     
-    public ComplexNumber add(ComplexNumber operand){
-        
-        ComplexNumber somma = new ComplexNumber();
-        
-        double re = 0;
-        double im = 0;
-        
-        re = this.re +operand.getRe();
-        im = this.im +operand.getIm();
-        somma.setRectangular(im, re);
-        return somma;
+    /**
+     * operazione di somma
+     * @param operand1
+     * @param operand2
+     * @return 
+     */
+    
+    public static ComplexNumber add(ComplexNumber operand1, ComplexNumber operand2) {
+        ComplexNumber r = new ComplexNumber();
+        r.setRectangular(operand1.getRe()+operand2.getRe(), operand1.getIm() + operand2.getIm());
+        return r;
     }
     
-     public ComplexNumber subtration (ComplexNumber operand){
-        
-        ComplexNumber sub = new ComplexNumber();
-        
-        double re = 0;
-        double im = 0;
-        
-        re = this.re - operand.getRe();
-        im = this.im - operand.getIm();
-        sub.setRectangular(im, re);
-        return sub;
+    /**
+     * operazione di sottrazione
+     * @param operand1
+     * @param operand2
+     * @return 
+     */
+     static public  ComplexNumber sub(ComplexNumber operand1, ComplexNumber operand2){
+        ComplexNumber r= new ComplexNumber();
+        r.setRectangular(operand1.getRe()-operand2.getRe(),operand1.getIm() - operand2.getIm());
+        return r;
+    }
+    
+    /**
+     * operazione di moltiplicazione
+     * @param operand1
+     * @param operand2
+     * @return 
+     */ 
+    static public  ComplexNumber multiply(ComplexNumber operand1,ComplexNumber operand2){
+        ComplexNumber r = new ComplexNumber();
+        r.setPolar(operand1.getModulus()*operand2.getModulus(),operand1.getArgument()+operand2.getArgument());
+        return r;
     }
      
-    public ComplexNumber moltiplication (ComplexNumber operand){
-        
-        ComplexNumber mul = new ComplexNumber();
-        
-        double re = 0;
-        double im = 0;
-        
-        re = this.getModulus() * operand.getModulus();
-        im = this.getArgument() + operand.getArgument();
-        mul.setPolar(im, re);
-        return mul;
+    /**
+     * operazione di divisione
+     * @param operand1
+     * @param operand2
+     * @return 
+     */
+    static public ComplexNumber divide(ComplexNumber operand1, ComplexNumber operand2){
+        ComplexNumber r= new ComplexNumber();
+        r.setPolar(operand1.getModulus()/operand2.getModulus(), operand1.getArgument()-operand2.getArgument());
+        return r;
     }
     
-    public ComplexNumber division (ComplexNumber operand){
-        
-        ComplexNumber div = new ComplexNumber();
-        
-        double re = 0;
-        double im = 0;
-        
-        re = this.getModulus() / operand.getModulus();
-        im = this.getArgument() - operand.getArgument();
-        div.setPolar(re, im);
-        return div;
-    }
+    /** cambia di segno la parte immaginaria
+     * @return 
+     */
     
     public ComplexNumber getConjugate(){
         
@@ -172,6 +232,25 @@ public class ComplexNumber {
         this.im *= -1;
         r.setRectangular(im, re);
         return r; 
+    }
+    
+     public String toString(StringFormat format) {
+        String r = new String();
+        switch(format) {
+		case RECTANGULAR:
+			r = this.re + "+(" + this.im + ")i";
+			break;
+		case POLAR:
+			r = this.getModulus() + "*exp(i*" + this.getArgument() +")";
+			break;
+		default:
+			throw new UnsupportedOperationException();
+		}
+		return r;
+    }
+    
+    @Override public String toString(){
+        return toString(this.format);
     }
 }
 
