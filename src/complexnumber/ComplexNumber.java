@@ -17,26 +17,9 @@ public class ComplexNumber {
     static private double initIm;
     
     static private StringFormat initFormat;
-    private double re;
-    private double im;
-    private StringFormat format;
+   
     
-    
-    /**
-     * vengono definiti i valori che possono essere 
-     * assunti da una variabile di tipo StringFormat
-     */
-      static public enum  StringFormat{
-        RECTANGULAR,
-        POLAR
-    }
-    
-    public void setStringFormat(StringFormat format) {
-	this.format = format;
-    }  
-      
-      
-    /**
+     /**
      * si inizializzano i campi initre, initim e il formato di 
      * rappresentazione
      * @param re
@@ -46,15 +29,8 @@ public class ComplexNumber {
     static public void setInitRectangular(double re, double im) {
         initRe = re;
         initIm = im;
+        initFormat = StringFormat.RECTANGULAR;
     }
-    
-    
-    public ComplexNumber() {
-        this.re = initRe;
-        this.im = initIm;
-        this.format= initFormat;
-    }
-    
     
     /**
      * si inizializzano i campi initre, initim e il formato di 
@@ -67,21 +43,32 @@ public class ComplexNumber {
             throw new IllegalArgumentException("il modulo deve essere 0 o maggiore");
         initRe = modulus*Math.cos(argument);
         initIm = modulus*Math.sin(argument);
-        initFormat = StringFormat.RECTANGULAR;
-    }
-
-    
-    public String formatComplexNumber() {
-        String r = this.getRe() + "+(" + this.getIm() + ")i";
-        return r;
-    
+        initFormat = StringFormat.POLAR;
     }
     
-    public String formatComplexNumberpolar() {
-        String r = this.getArgument()+ "+(" + this.getModulus()+ ")i";
-        return r;
-    
+    /**
+     * vengono definiti i valori che possono essere 
+     * assunti da una variabile di tipo StringFormat
+     */
+      static public enum  StringFormat{
+        RECTANGULAR,
+        POLAR
     }
+    
+    private StringFormat format;
+    private double re;
+    private double im;
+    
+    public ComplexNumber() {
+        this.re = ComplexNumber.initRe;
+        this.im = ComplexNumber.initIm;
+        this.format= ComplexNumber.initFormat;
+    }
+    
+    public void setStringFormat(StringFormat format) {
+	this.format = format;
+    }  
+      
     
     /**
      * @return the re
@@ -233,6 +220,8 @@ public class ComplexNumber {
         r.setRectangular(im, re);
         return r; 
     }
+   
+    
     
      public String toString(StringFormat format) {
         String r = new String();
@@ -251,6 +240,24 @@ public class ComplexNumber {
     
     @Override public String toString(){
         return toString(this.format);
+    
+    }
+    /**
+     * metodo che verifica l'ugalianza fra due
+     * istanze
+     * @param o
+     * @return 
+     */
+    
+    @Override public boolean equals(Object o) {
+		boolean r = false;
+		if(o instanceof ComplexNumber) {
+			ComplexNumber p = (ComplexNumber)o;
+			if(this.re == p.getRe() && this.im == p.getIm()) {
+				r = true;
+			}
+		}
+		return r;
     }
 }
 
